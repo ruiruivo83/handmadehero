@@ -22,19 +22,20 @@ LRESULT CALLBACK MainWindowCallBack(
         OutputDebugStringA("WM_SIZE\n");
     } break;
 
-    case WM_DESTROY:
-    {
-        OutputDebugStringA("WM_DESTROY\n");
-    } break;
-
     case WM_CLOSE:
     {
+        PostQuitMessage(0);
         OutputDebugStringA("WM_CLOSE\n");
     } break;
 
     case WM_ACTIVATEAPP:
     {
         OutputDebugStringA("WM_ACTIVATEAPP\n");
+    } break;
+
+    case WM_DESTROY:
+    {
+        OutputDebugStringA("WM_DESTROY\n");
     } break;
 
     case WM_PAINT:
