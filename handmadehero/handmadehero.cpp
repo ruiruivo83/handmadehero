@@ -22,6 +22,11 @@
 // TODO(Rui): This is a global for now.
 global_variable bool Running;
 
+internal void ResizeDIBSection(int Width, int Height)
+{
+
+}
+
 LRESULT CALLBACK MainWindowCallBack(
     HWND Window,
     UINT Message,
@@ -37,7 +42,12 @@ LRESULT CALLBACK MainWindowCallBack(
 
     case WM_SIZE:
     {
-        OutputDebugStringA("WM_SIZE\n");
+        // Gets th area in wish we can draw, witheout the borders.
+        RECT ClientRect;
+        GetClientRect(Window, &ClientRect);
+        int Width = ClientRect.right - ClientRect.left;
+        int Height = ClientRect.bottom - ClientRect.top;
+        ResizeDIBSection(Width, Height);        
     } break;
 
     case WM_CLOSE:
@@ -70,7 +80,6 @@ LRESULT CALLBACK MainWindowCallBack(
         int Width = Paint.rcPaint.right - Paint.rcPaint.left;
         int Height = Paint.rcPaint.bottom - Paint.rcPaint.top;
         local_persist DWORD Operation = WHITENESS;
-
         PatBlt(DeviceContext, X, Y, Width, Height, Operation);
         if (Operation == WHITENESS) {
             Operation = BLACKNESS;
